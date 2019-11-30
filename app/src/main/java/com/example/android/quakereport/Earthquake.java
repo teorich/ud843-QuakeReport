@@ -1,23 +1,31 @@
 package com.example.android.quakereport;
 
+import android.net.Uri;
+
 public class Earthquake {
 
-    private  String mMagnitude;
+    //magnitude
+    private double mMagnitude;
 
 
     private  String mLocation;
 
 
-    private  String mDate;
+    private  Long mTimeMilliseconds;
+
+    private Uri mlink;
 
 
-    public Earthquake(String mMagnitude, String mLocation, String mDate) {
+
+
+    public Earthquake(double mMagnitude, String mLocation, Long mDate, Uri link) {
         this.mMagnitude = mMagnitude;
         this.mLocation = mLocation;
-        this.mDate = mDate;
+        this.mTimeMilliseconds = mDate;
+        this.mlink = link;
     }
 
-    public String getMagnitude() {
+    public Double getMagnitude() {
         return mMagnitude;
     }
 
@@ -25,7 +33,10 @@ public class Earthquake {
         return mLocation;
     }
 
-    public String getDate() {
-        return mDate;
+    public Long getmTimeMilliseconds() {
+        return mTimeMilliseconds;
+    }
+    public Uri getMlink() {
+        return mlink;
     }
 }

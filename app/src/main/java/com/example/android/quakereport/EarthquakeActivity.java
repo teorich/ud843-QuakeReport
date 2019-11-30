@@ -17,9 +17,11 @@ package com.example.android.quakereport;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.net.Uri;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
+import android.content.Intent;
 import java.util.ArrayList;
 
 public class EarthquakeActivity extends AppCompatActivity {
@@ -32,17 +34,21 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        ArrayList<Earthquake> earthquakes = new ArrayList<>();
-        earthquakes.add(new Earthquake("7.2","San Francisco","Feb 2,2016"));
-        earthquakes.add(new Earthquake("6.1","London","July 20,2015"));
-        earthquakes.add(new Earthquake("3.9","Tokyo","Nov 10,2014"));
-        earthquakes.add(new Earthquake("5.4","Mexico City","May 3,2014"));
-        earthquakes.add(new Earthquake("2.8","Moscow","Jan 31,2013"));
-        earthquakes.add(new Earthquake("4.9","Rio de Janeiro","Aug 19,2012"));
-        earthquakes.add(new Earthquake("1.6","Paris","Oct 30,2011"));
+        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
+
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Uri uri = earthquakes.get(position).getMlink();
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+
 
         // Create a new {@link EarthquakeAdapter} of earthquakes
        EarthquakeAdapter adapter = new EarthquakeAdapter(
