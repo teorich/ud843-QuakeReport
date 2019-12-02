@@ -36,6 +36,7 @@ public class Earthquake {
     public Long getmTimeMilliseconds() {
         return mTimeMilliseconds;
     }
+
     public Uri getMlink() {
         return mlink;
     }
